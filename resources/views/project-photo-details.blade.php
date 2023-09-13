@@ -156,21 +156,17 @@ $picture_description = $gen_class::in_table("sub_project_photos",[['project_id',
 </div>
 </div>
 
-<?php
-/*$result = $db->select($table, "WHERE NOT(id = '$item_id')", "*", "ORDER BY id DESC", "LIMIT 4");
-if(count_rows($result) > 0){
-?>
+<!-- Related Projects -->
+@if($related_posts->count() > 0)
 <h1 class="home-adverts-tag">Related Projects</h1>
-<div class="item-wrapper">
-<?php
-while($row = fetch_data($result)){
-load_project_photo();
-}
-?>
-</div>
-<?php
-}*/
-?>
+<x-post-wrapper>
+@foreach($related_posts as $post)
+@php $file_name =  $gen_class::det_image('items-featured/' . $post->id . '_' . $post->posted_by . '_item_featured_*.*', 0) @endphp
+<x-post-grid :file_name="$file_name" :post="$post"/>
+@endforeach
+</x-post-wrapper>
+@endif
+<!-- Ends Related Projects -->
 
 </div>
 </div>

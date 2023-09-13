@@ -37,12 +37,12 @@ class ProjectsPosts extends Controller
 	}
 	}
 
-	public function view_project_photos($pn, $slug){
+	public function view_project_photos($slug){
 	$post = ProjectPhoto::where('title_slug',$slug)->first(); 
 	$title = GenClass::in_table("project_photos", [["title_slug", "=", $slug]], "title");
 	$page_slug="project-photo-details";
-	$pn = (!empty(request('pn'))) ? request('pn') : 1;
-	return view('/project-photo-details', compact('post', 'title', 'page_slug', 'pn'));	
+	$related_posts = ProjectPhoto::where('id', '!=', $post->id)->take(8)->get();
+	return view('/project-photo-details', compact('post', 'title', 'page_slug', 'related_posts'));	
 	}
 	
 	public function manage_projects_images(){

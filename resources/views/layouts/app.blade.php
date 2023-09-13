@@ -85,24 +85,22 @@ margin-left:20px;
 @php detectCurrUserBrowser('<table width="100%"><tr><td>','',7); @endphp
 <body>
 
+@auth
 <div class="header-wrapper header-wrapper1" id="bodyDiv">
 <div class="header header1">
 <ul class="top-ul">
-@auth
+@if($gen_class::gen("is_admin"))
 <li><a onClick="javascript:my_confirm('Logout Confirmation','Are you sure you want to log out?','/logout');"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
-<?php //if(!empty($is_admin)){ ?>
-<li><a href="{{$gen_class::$admin}}"><i class="fa fa-dashboard" aria-hidden="true"></i> Admin Portal</a></li>
-<?php
-//}
-?>
-<li><a href="{{$gen_class::$users}}"><i class="fa fa-user" aria-hidden="true"></i> My Profile</a></li>
-@else
-<li><a href="register"><i class="fa fa-laptop" aria-hidden="true"></i> Register</a></li>
-<li><a href="login"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
-@endauth
+<li><a href="{{$gen_class::$admin}}"><i class="fa fa-dashboard" aria-hidden="true"></i> Admin Dashboard</a></li>
+@endif
+
+<!--<li><a href="register"><i class="fa fa-laptop" aria-hidden="true"></i> Register</a></li>
+<li><a href="login"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>-->
+
 </ul>
 </div>
 </div>
+@endauth
 
 <div class="home-bg">
 

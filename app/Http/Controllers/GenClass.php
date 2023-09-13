@@ -39,6 +39,8 @@ class GenClass extends Controller
 				return rand(1000, 9999);
 			case "regards":
 				return "<p>&nbsp;</p><p>Regards,<br>" . self::$gen_name . " Team.</p>";
+			case "is_admin":
+				return self::in_table("users", [["id", "=", auth()->user()->id]], "admin");
 		}
 	}
 
