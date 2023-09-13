@@ -36,6 +36,14 @@ class ProjectsPosts extends Controller
     return view('projects-photos', $query);
 	}
 	}
+
+	public function view_project_photos($pn, $slug){
+	$post = ProjectPhoto::where('title_slug',$slug)->first(); 
+	$title = GenClass::in_table("project_photos", [["title_slug", "=", $slug]], "title");
+	$page_slug="project-photo-details";
+	$pn = (!empty(request('pn'))) ? request('pn') : 1;
+	return view('/project-photo-details', compact('post', 'title', 'page_slug', 'pn'));	
+	}
 	
 	public function manage_projects_images(){
 	$search_fields = ['keyword', 'no_of_rows', 'search_start_date', 'search_end_date'];

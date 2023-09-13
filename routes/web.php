@@ -24,6 +24,7 @@ Route::get('/', [ProjectsPosts::class, 'index']);
 Route::get('/projects-photos', [ProjectsPosts::class, 'project_photos']);
 Route::get('/projects-photos/{pn}', [ProjectsPosts::class, 'project_photos'])->where('pn', '[0-9]+');
 Route::post('/projects-photos', [ProjectsPosts::class, 'project_photos']);
+Route::get('/project-photo-details/{slug}', [ProjectsPosts::class, 'view_project_photos']);
 Route::view('/about', 'about', ['title' => 'About Us', 'page_slug'=>'about']);
 Route::view('/contact', 'contact', ['title' => 'Contact Us', 'page_slug'=>'contact']);
 Route::view('/services', 'services', ['title' => 'Our Services', 'page_slug'=>'services'])->name('service');

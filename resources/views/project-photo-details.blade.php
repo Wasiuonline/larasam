@@ -5,32 +5,22 @@
 <div class="home-body-wrapper"> 
 <div class="container">
 
-<?php
-$table = "`project_photos`";
-$title_slug = tr_input("title_slug");
-$view = in_table("id",$table,"WHERE title_slug = '{$title_slug}'","id");
-$pn = nr_input("pn");
+@if($post)
+@php
+$item_id = $post->id;
 
-//=======================View Event Details==============================//
-if(!empty($view)){
-$result = $db->select($table, "WHERE id='$view'", "*", "");
+$project_date = $gen_class::sub_date($post->project_date);
+$title = $post->title;
+$location = $post->location;
+$details = $post->details;
+$date_posted = $gen_class::full_date($post->date_posted);
+$posted_by = $post->posted_by;
+$poster_name = $gen_class::in_table("users",[['id', '=', $posted_by]],"name");
+$poster_email = $gen_class::in_table("users",[['id', '=', $posted_by]],"email");
 
-if(count_rows($result) == 1){
-$row = fetch_data($result);
-$item_id = $row["id"];
-$project_date = sub_date($row["project_date"]);
-$title = decode_content($row["title"]);
-$location = decode_content($row["location"]);
-$details = decode_content($row["details"]);
-$date_posted = full_date($row["date_posted"]);
-$posted_by = $row["posted_by"];
-$poster_name = in_table("name",$users_tb,"WHERE id = '{$posted_by}'","name");
-$poster_email = in_table("email",$users_tb,"WHERE id = '{$posted_by}'","email");
-
-$slide_array1 = glob("images/items-featured/{$item_id}_{$posted_by}_item_featured_*.*");
-$slide_array2 = glob("images/items-displayed/{$item_id}_{$posted_by}_item_displayed_*.*");
-$file_name = det_image("items-featured/{$item_id}_{$posted_by}_item_featured_*.*", 0);
-?>
+$slide_array1 = $gen_class::det_all_images("items-featured/{$item_id}_{$posted_by}_item_featured_*.*");
+$slide_array2 = $gen_class::det_all_images("items-displayed/{$item_id}_{$posted_by}_item_displayed_*.*");
+@endphp
 
 <style>
 <!--
@@ -105,65 +95,61 @@ width:100%;
 
 <div>
 
-<link rel="stylesheet" href="css/fotorama.css">
-<script src="js/fotorama.js"></script>
+<link rel="stylesheet" href="{{asset('css/fotorama.css')}}">
+<script src="{{asset('js/fotorama.js')}}"></script>
 
 <div class="col-md-7 remove-overflow">
 
-<?php if(count($slide_array2) > 1){ ?>
+@if($slide_array2 && count($slide_array2) > 1)
 <div class="fotorama" data-width="600" data-ratio="2.5/2" data-nav="thumbs" data-thumbheight="48">
-<?php $c = 0;
-foreach($slide_array2 as $val){
-if(file_exists($val)){
+@php $c = 0; @endphp
+@foreach($slide_array2 as $val)
+@php
 $file_session_no_arr = explode("_",$val);
 $file_session_no = $file_session_no_arr[4];
-$picture_description = in_table("picture_description","sub_project_photos","WHERE project_id = '$item_id' AND file_session_no = '$file_session_no'","picture_description");
-?>
-<a href="<?php echo $val; ?>" data-caption="<?php echo $picture_description; ?>"><img src="<?php echo (file_exists($slide_array1[$c]))?$slide_array1[$c]:""; ?>"></a>
-<?php
-}
-$c++;
-}
-?>
+$picture_description = $gen_class::in_table("sub_project_photos",[['project_id', '=', $item_id],['file_session_no', '=', $file_session_no]],"picture_description");
+@endphp
+<a href="{{$val}}" data-caption="{{$picture_description}}"><img src="{{ (file_exists(public_path($slide_array1[$c])))?$slide_array1[$c]:'' }}"></a>
+@php $c++; @endphp
+@endforeach
 </div> 
-<?php }else{ 
-$val = $slide_array2[0];
-if($val){
+@else 
+@php $val = (isset($slide_array2[0]))?$slide_array2[0]:""; @endphp
+@if($val)
+@php
 $file_session_no_arr = explode("_",$val);
 $file_session_no = $file_session_no_arr[4];
-$picture_description = in_table("picture_description","sub_project_photos","WHERE project_id = '$item_id' AND file_session_no = '$file_session_no'","picture_description");
-?>
-<div><img src="<?php echo $val; ?>"></div>
-<div class="single-fotorama-description"><?php echo $picture_description; ?></div>
-<?php 
-}
-}
+$picture_description = $gen_class::in_table("sub_project_photos",[['project_id', '=', $item_id],['file_session_no', '=', $file_session_no]],"picture_description");
+@endphp
+<div><img src="{{$val}}"></div>
+<div class="single-fotorama-description">{{$picture_description}}</div>
+@endif
+@endif
 
-if(!empty($details)){ ?>
+@if(!empty($details))
 <h3 class="description-title">Details</h3>
-<?php echo $details;
-} 
-?>
+{{$details}}
+@endif
 
 </div>
 <div class="col-md-5">
 
 <h3 class="description-title">Event Date</h3>
-<p><i class="fa fa-calendar" aria-hidden="true"></i> <?php echo $project_date; ?></p>
+<p><i class="fa fa-calendar" aria-hidden="true"></i> {{$project_date}}</p>
 
 <h3 class="description-title">Location</h3>
-<p><i class="fa fa-map-marker" aria-hidden="true"></i> <?php echo $location; ?></p>
+<p><i class="fa fa-map-marker" aria-hidden="true"></i> {{$location}}</p>
 
 <hr style="border:#dde 1px solid" />
 
 <div class="share-buttons border-radius">
 <h3 class="description-title">Share ad on:</h3>
-<a href="https://www.facebook.com/sharer.php?u=<?php echo urlencode($actual_link); ?>" class="btn btn-primary" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i> Facebook</a>
-<a href="https://twitter.com/intent/tweet?url=<?php echo urlencode($actual_link); ?>&text=<?php echo urlencode($page_title); ?>" class="btn btn-success" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a>
-<a href="https://plus.google.com/share?url=<?php echo $actual_link; ?>" class="btn btn-danger" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i> Google+</a>
-<a href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode($actual_link); ?>&title=<?php echo urlencode($page_title); ?>&summary=<?php echo urlencode(strip_tags($details)); ?>&source=" class="btn  btn-primary" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i> Linkedin</a>
-<a href="https://pinterest.com/pin/create/button/?url=<?php echo urlencode($actual_link); ?>&media=<?php echo urlencode($directory . $slide_array1[0]); ?>&description=<?php echo urlencode($page_title); ?>" class="btn btn-danger" target="_blank"><i class="fa fa-pinterest-p" aria-hidden="true"></i> Pinterest</a>
-<a href="https://api.whatsapp.com/send?text=<?php echo urlencode($actual_link); ?>" class="btn btn-success" target="_blank"><i class="fa fa-whatsapp" aria-hidden="true"></i> WhatsApp</a>
+<a href="https://www.facebook.com/sharer.php?u={{url()->full()}}" class="btn btn-primary" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i> Facebook</a>
+<a href="https://twitter.com/intent/tweet?url={{url()->full()}}&text={{urlencode($title)}}" class="btn btn-success" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a>
+<a href="https://plus.google.com/share?url={{url()->full()}}" class="btn btn-danger" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i> Google+</a>
+<a href="https://www.linkedin.com/shareArticle?mini=true&url={{url()->full()}}&title={{urlencode($title)}}&summary=<?php echo urlencode(strip_tags($details)); ?>&source=" class="btn  btn-primary" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i> Linkedin</a>
+<a href="https://pinterest.com/pin/create/button/?url={{url()->full()}}&media={{url($slide_array1[0])}}&description={{urlencode($title)}}" class="btn btn-danger" target="_blank"><i class="fa fa-pinterest-p" aria-hidden="true"></i> Pinterest</a>
+<a href="https://api.whatsapp.com/send?text={{url()->full()}}" class="btn btn-success" target="_blank"><i class="fa fa-whatsapp" aria-hidden="true"></i> WhatsApp</a>
 </div>
 
 
@@ -171,7 +157,7 @@ if(!empty($details)){ ?>
 </div>
 
 <?php
-$result = $db->select($table, "WHERE NOT(id = '$item_id')", "*", "ORDER BY id DESC", "LIMIT 4");
+/*$result = $db->select($table, "WHERE NOT(id = '$item_id')", "*", "ORDER BY id DESC", "LIMIT 4");
 if(count_rows($result) > 0){
 ?>
 <h1 class="home-adverts-tag">Related Projects</h1>
@@ -183,26 +169,16 @@ load_project_photo();
 ?>
 </div>
 <?php
-}
+}*/
 ?>
 
 </div>
 </div>
 
-<?php 
-}else{
-?>
+@else
 <div style="padding-left:10px;"><a onclick="javascript: history.back(1);" class="btn gen-btn"><i class="fa fa-arrow-left"></i> Back</a></div>
 <div class="not-success">This project does not exist.</div>
-<?php
-} 
-}else{
-?>
-<div style="padding-left:10px;"><a onclick="javascript: history.back(1);" class="btn gen-btn"><i class="fa fa-arrow-left"></i> Back</a></div>
-<div class="not-success">Invalid Access.</div>
-<?php
-} 
-?>
+@endif
 
 </div>
 </div>
