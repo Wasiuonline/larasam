@@ -206,6 +206,7 @@ text-align:center;
 </div>
 @endif
 
+<!--
 @if($gen_class::check_privilege("manage_general_inbox") == 1 || $gen_class::check_privilege("send_emails"))
 <a id="messages-menu" class="main-menu {{ (!empty($gen_class::current_page('general-inbox', $page_slug)) || !empty($gen_class::current_page('new-message', $page_slug)))?'main-current':'' }}"><i class="fa fa-envelope" aria-hidden="true"></i> Messages</a>
 <div id="messages-menu-div" class="sub-menu">
@@ -216,6 +217,7 @@ text-align:center;
 @endif
 </div>
 @endif
+-->
 
 <a id="settings-menu" class="main-menu {{ (!empty($gen_class::current_page('profile', $page_slug)) || !empty($gen_class::current_page('reset-password', $page_slug)))?'main-current':'' }}"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a>
 <div id="settings-menu-div" class="sub-menu">
@@ -223,7 +225,7 @@ text-align:center;
 <a href="{{ $gen_class::$admin }}/reset-password" class="{{ $gen_class::current_page('reset-password', $page_slug) }}"><i class="fa fa-lock" aria-hidden="true"></i> Reset Password</a>
 </div>
 
-<a class="main-menu" onClick="javascript:my_confirm('Logout Confirmation','Are you sure you want to log out?','/logout');"><i class="fa fa-sign-out"></i> Log Out</a>
+<a class="main-menu" onClick="javascript:my_confirm('Logout Confirmation','Are you sure you want to log out?','{{url('/logout')}}');"><i class="fa fa-sign-out"></i> Log Out</a>
 </div>
 
 <div class="portal-body portal-content">

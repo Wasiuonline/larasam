@@ -9,4 +9,9 @@ class Newsletter extends Model
 {
     use HasFactory;
 	protected $table = 'newsletter';
+    protected $fillable = [
+        'name',
+        'email',
+        'date_time'
+    ];
 }

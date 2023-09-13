@@ -27,10 +27,8 @@
 
 <div class="col-sm-4 subscribe">
 <div class="title btn">NEWSLETTER</div>
-<form  action="/privates/process-data" class="newsletter" method="post" runat="server" autocomplete="off" enctype="multipart/form-data">
-
-<input type="hidden" name="newsletter" value="1">
-
+<form  action="process-data/newsletter-subscription" method="post" runat="server" autocomplete="off" enctype="multipart/form-data">
+@csrf
 <div class="form-group input-group">
 <span class="input-group-addon"><i class="fa"><label for="name">Name</label></i></span>
 <input type="text" name="name" id="name" class="form-control" value="" placeholder="Your name" required>
@@ -45,11 +43,11 @@
 </div>	
 </form>
 <div class="footer-social">
-<a href="javascript:void(0);" title="Facebook" class="fa fa-facebook btn" target="_blank"></a>
+<!--<a href="javascript:void(0);" title="Facebook" class="fa fa-facebook btn" target="_blank"></a>
 <a href="javascript:void(0);" title="Twitter" class="fa fa-twitter btn"></a>
 <a href="javascript:void(0);" title="Google +" class="fa fa-google-plus btn"></a>
 <a href="javascript:void(0);" title="Pinterest" class="fa fa-pinterest-p btn"></a>
-<a href="javascript:void(0);" title="Instagram" class="fa fa-instagram btn"></a>
+<a href="javascript:void(0);" title="Instagram" class="fa fa-instagram btn"></a>-->
 </div>
 </div>
 

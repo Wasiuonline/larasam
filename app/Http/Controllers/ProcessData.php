@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SubProjectPhoto;
 use App\Models\ItemsSize; 
+use App\Models\Newsletter;
 use App\Http\Controllers\GenClass; 
 use Illuminate\Support\Facades\File;
 use File as FileMC;
 use Image;
 use DB;
+use Illuminate\Validation\Rule;
 
 class ProcessData extends Controller
 {
@@ -47,47 +49,26 @@ $item_id = tp_input("item_id");
 
 $save_item = np_input("save_item"); 
 $separator = np_input("separator"); 
-
-///////////////Newsletter///////////////////////
-if($_SERVER['REQUEST_METHOD'] == "POST" && !empty($newsletter) && !empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)){
-
-$result = $db->select("newsletter", "Where email = '{$email}'", "*", "");
-
-if(count_rows($result) < 1){
-
-$data_array = array(
-"email" => $email
-);
-
-$act = $db->insert($data_array, "newsletter");
-
-if($act){
-
-$to = $email;
-$subject = "Newsletter Subscription";
-$message = "<p>Thank you for signing up for subscribing for our newsletters.</p>
-<p>We will keep you updated as soon as possible.</p>";
-$message = message_template();
-$headers = "{$gen_name} <no-reply@{$domain}>";
-send_mail();
-
-echo "<div class='success'>Newsletter subscription was successful.</div>";
-}else{
-echo "<div class='not-success'>Error occured.</div>";
-}
-}else{
-echo "<div class='not-success'>Not Successful. Email already exists.</div>";
-}
-
-}
-
-if($_SERVER['REQUEST_METHOD'] == "POST" && !empty($newsletter) && empty($email)){
-echo "<div class='not-success'>Not Successful. All fields are required.</div>";
-}else if($_SERVER['REQUEST_METHOD'] == "POST" && !empty($newsletter) && !empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)){
-echo "<div class='not-success'>Not Successful. Invalid email format.</div>";
-}
-///////////////////////////////////////////
 */
+
+////////////// Newsletter Subscription //////////////////////////////
+
+public function newsletter_subscription(Request $request){
+	$formFields = $request->validate([
+	'name' => ['required', 'min:3'],
+	'email' => ['required', 'email', Rule::unique('newsletter', 'email')]
+	]);	
+	$formFields["date_time"] = GenClass::gen("date_time");
+	Newsletter::create($formFields);
+	/* 	$to = $email;
+	$subject = "Newsletter Subscription";
+	$message = "<p>Thank you for signing up for subscribing for our newsletters.</p>
+	<p>We will keep you updated as soon as possible.</p>";
+	$message = message_template();
+	$headers = "{$gen_name} <no-reply@{$domain}>";
+	send_mail(); */
+	return redirect(url()->previous())->with('success', 'Successful Subscription!');
+}
 
 ////////////// Upload project image //////////////////////////////
 public static function upload_project_image(Request $request){

@@ -18,7 +18,7 @@
 
 <div class="col-sm-3 nav-link">
 <div class="title btn">QUICK LINKS</div>
-<a href="<?php directory(); ?>" class="<?php //echo current_page("index"); ?>"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+<a href="{{url('/')}}" class="<?php //echo current_page("index"); ?>"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
 <a href="about/" class="<?php //echo current_page("about"); ?>"><i class="fa fa-university" aria-hidden="true"></i> About Us</a>
 <a href="contact/" class="<?php //echo current_page("contact"); ?>"><i class="fa fa-phone" aria-hidden="true"></i> Contact Us</a>
 <a href="services/" class="<?php //echo current_page("services"); ?>"><i class="fa fa-cogs" aria-hidden="true"></i> Services</a>

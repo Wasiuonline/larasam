@@ -28,6 +28,7 @@ Route::get('/project-photo-details/{slug}', [ProjectsPosts::class, 'view_project
 Route::view('/about', 'about', ['title' => 'About Us', 'page_slug'=>'about']);
 Route::view('/contact', 'contact', ['title' => 'Contact Us', 'page_slug'=>'contact']);
 Route::view('/services', 'services', ['title' => 'Our Services', 'page_slug'=>'services'])->name('service');
+Route::post('/process-data/newsletter-subscription', [ProcessData::class, 'newsletter_subscription']);
 
 Route::middleware('guest')->group(function(){
 Route::get('/register', [AuthUserController::class, 'create']);

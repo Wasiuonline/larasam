@@ -90,7 +90,7 @@ margin-left:20px;
 <div class="header header1">
 <ul class="top-ul">
 @if($gen_class::gen("is_admin"))
-<li><a onClick="javascript:my_confirm('Logout Confirmation','Are you sure you want to log out?','/logout');"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+<li><a onClick="javascript:my_confirm('Logout Confirmation','Are you sure you want to log out?','{{ url('/logout') }}');"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
 <li><a href="{{$gen_class::$admin}}"><i class="fa fa-dashboard" aria-hidden="true"></i> Admin Dashboard</a></li>
 @endif
 
