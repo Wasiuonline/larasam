@@ -65,7 +65,7 @@ echo $b;
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<base href="/" target="_top">
+<base href="{{url('/')}}" target="_top">
 <meta charset="UTF-8" />
 <meta name="keywords" content="" />
 <meta name="description" content="" />
