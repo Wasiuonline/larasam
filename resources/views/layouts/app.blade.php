@@ -33,7 +33,7 @@ $det_cat_slug = "";
 <head>
 <?php //include_once("includes/analyticstracking.php"); ?>
 
-<base href="{{ url('/') }}" target="_top">
+<base href="{{ url('/') }}/" target="_top">
 <meta charset="UTF-8" />
 <meta name="description" content="A technical service company, {{ url('/') }}"/>
 <meta name="robots" content="noodp"/>
