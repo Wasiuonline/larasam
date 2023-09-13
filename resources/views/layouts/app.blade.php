@@ -33,7 +33,7 @@ $det_cat_slug = "";
 <head>
 <?php //include_once("includes/analyticstracking.php"); ?>
 
-<base href="/" target="_top">
+<base href="{{ url('/') }}" target="_top">
 <meta charset="UTF-8" />
 <meta name="description" content="A technical service company, {{ url('/') }}"/>
 <meta name="robots" content="noodp"/>
@@ -109,10 +109,10 @@ margin-left:20px;
 <a href="{{ url('/') }}" class="logo-link float-left"><img src="{{ asset('images/logos/samvick-logo.png') }}"></a>
 <button class="collapse"><span></span><span></span><span></span></button>
 <ul class="main-list">
-<li><a href="about" class="{{ $gen_class::current_page('about', $page_slug) }}">Our Company</a></li>
+<li><a href="{{ url('/about') }}" class="{{ $gen_class::current_page('about', $page_slug) }}">Our Company</a></li>
 <li><a href="{{ route('service') }}" class="{{ $gen_class::current_page('services', $page_slug) }}">Our Services</a></li>
-<li><a href="projects-photos" class="{{ $gen_class::current_page('projects-photos', $page_slug) }}">Projects Photos</a></li>
-<li><a href="contact" class="{{ $gen_class::current_page('contact', $page_slug) }}">Contact</a></li>
+<li><a href="{{ url('/projects-photos') }}" class="{{ $gen_class::current_page('projects-photos', $page_slug) }}">Projects Photos</a></li>
+<li><a href="{{ url('/contact') }}" class="{{ $gen_class::current_page('contact', $page_slug) }}">Contact</a></li>
 </ul>
 </div>
 </div>
@@ -141,16 +141,16 @@ margin-left:20px;
 
 <div class="col-sm-3 nav-link">
 <div class="title btn">QUICK LINKS</div>
-<a href="/" class="{{ $gen_class::current_page('index', $page_slug) }}"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
-<a href="about" class="{{ $gen_class::current_page('about', $page_slug) }}"><i class="fa fa-university" aria-hidden="true"></i> About Us</a>
-<a href="contact" class="{{ $gen_class::current_page('contact', $page_slug) }}"><i class="fa fa-phone" aria-hidden="true"></i> Contact Us</a>
-<a href="services" class="{{ $gen_class::current_page('services', $page_slug) }}"><i class="fa fa-cogs" aria-hidden="true"></i> Services</a>
-<a href="projects-photos" class="{{ $gen_class::current_page('projects-photos', $page_slug) }}"><i class="fa fa-file-image-o" aria-hidden="true"></i> Past Projects</a>
+<a href="{{ url('/') }}" class="{{ $gen_class::current_page('index', $page_slug) }}"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+<a href="{{ url('/about') }}" class="{{ $gen_class::current_page('about', $page_slug) }}"><i class="fa fa-university" aria-hidden="true"></i> About Us</a>
+<a href="{{ url('/contact') }}" class="{{ $gen_class::current_page('contact', $page_slug) }}"><i class="fa fa-phone" aria-hidden="true"></i> Contact Us</a>
+<a href="{{ url('/services') }}" class="{{ $gen_class::current_page('services', $page_slug) }}"><i class="fa fa-cogs" aria-hidden="true"></i> Services</a>
+<a href="{{ url('/projects-photos') }}" class="{{ $gen_class::current_page('projects-photos', $page_slug) }}"><i class="fa fa-file-image-o" aria-hidden="true"></i> Past Projects</a>
 </div>
 
 <div class="col-sm-4">
 <div class="title btn">ABOUT US</div>
-<p><b>SamVick Technical Services Limited</b> is a company with years of experience in gas welding (argon) and Arc welding of all kinds of steel. Such as stainless steel, mild steel, galvanize aluminum etc as well as supply of materials. <a href="about/" style="color:#ff5;">Read more...</a></p>
+<p><b>SamVick Technical Services Limited</b> is a company with years of experience in gas welding (argon) and Arc welding of all kinds of steel. Such as stainless steel, mild steel, galvanize aluminum etc as well as supply of materials. <a href="{{ url('/about') }}" style="color:#ff5;">Read more...</a></p>
 </div>
 
 </div>

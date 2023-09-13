@@ -109,7 +109,7 @@ $file_session_no_arr = explode("_",$val);
 $file_session_no = $file_session_no_arr[4];
 $picture_description = $gen_class::in_table("sub_project_photos",[['project_id', '=', $item_id],['file_session_no', '=', $file_session_no]],"picture_description");
 @endphp
-<a href="{{$val}}" data-caption="{{$picture_description}}"><img src="{{ (file_exists(public_path($slide_array1[$c])))?$slide_array1[$c]:'' }}"></a>
+<a href="{{asset($val)}}" data-caption="{{$picture_description}}"><img src="{{ (file_exists(public_path($slide_array1[$c])))?asset($slide_array1[$c]):'' }}"></a>
 @php $c++; @endphp
 @endforeach
 </div> 
@@ -121,7 +121,7 @@ $file_session_no_arr = explode("_",$val);
 $file_session_no = $file_session_no_arr[4];
 $picture_description = $gen_class::in_table("sub_project_photos",[['project_id', '=', $item_id],['file_session_no', '=', $file_session_no]],"picture_description");
 @endphp
-<div><img src="{{$val}}"></div>
+<div><img src="{{asset($val)}}"></div>
 <div class="single-fotorama-description">{{$picture_description}}</div>
 @endif
 @endif
