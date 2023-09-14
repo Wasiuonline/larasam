@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminUser;
 use App\Http\Controllers\RoleManagement;
 use App\Http\Controllers\GenClass;
 use App\Http\Controllers\ProcessData;
+use App\Http\Controllers\ContactController;
 use App\Http\Middleware\Admin;
 
 /*
@@ -27,6 +28,7 @@ Route::post('/projects-photos', [ProjectsPosts::class, 'project_photos']);
 Route::get('/project-photo-details/{slug}', [ProjectsPosts::class, 'view_project_photos']);
 Route::view('/about', 'about', ['title' => 'About Us', 'page_slug'=>'about']);
 Route::view('/contact', 'contact', ['title' => 'Contact Us', 'page_slug'=>'contact']);
+Route::post('/contact', [ContactController::class, 'contact_message']);
 Route::view('/services', 'services', ['title' => 'Our Services', 'page_slug'=>'services'])->name('service');
 Route::post('/process-data/newsletter-subscription', [ProcessData::class, 'newsletter_subscription']);
 

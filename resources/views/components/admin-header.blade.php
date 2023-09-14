@@ -155,7 +155,7 @@ text-align:center;
 <div class="upper-nav">
 <b style="font-size:18px;">ADMIN PORTAL</b>
 <ul>
-<li><a onClick="javascript:my_confirm('Logout Confirmation','Are you sure you want to log out?','/logout');">Logout</a></li>
+<li><a onClick="javascript:my_confirm('Logout Confirmation','Are you sure you want to log out?','{{url('/logout')}}');">Logout</a></li>
 </ul>
 </div>
 </div>

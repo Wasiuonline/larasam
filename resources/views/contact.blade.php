@@ -129,8 +129,8 @@ unset($_SESSION["msg"]);
 
 </div>
 <div class="col-md-7 content-vission">
-<form action="contact/" method="post" class="special-form" id="contact-result" runat="server" name="send_mail" autocomplete="off" enctype="multipart/form-data">  
-
+<form action="contact" method="post" class="special-form" id="contact-result" runat="server" name="send_mail" autocomplete="off" enctype="multipart/form-data">  
+@csrf
 <div class="special-title border-radius"><i class="fa fa-envelope"></i> Send us a mail</div>
 
 <input type="hidden" name="mail" value="1">
@@ -158,12 +158,6 @@ unset($_SESSION["msg"]);
 <div class="form-group input-group">
 <span class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
 <textarea type="text" name="message" id="message" class="form-control" placeholder="Details" required value=""><?php //check_inputted("message"); ?></textarea>
-</div>
-
-<label for="check_user">Type this check code below: <span class="check-spam"><?php //$_SESSION["spam_checker"] = rand(1000,9999); echo $_SESSION["spam_checker"]; ?></span></label>
-<div class="form-group input-group">
-<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-<input type="text" name="check_user" id="check_user" class="form-control only-no"  maxlength="4" placeholder="Type the check code here" required value="" style="height:auto;">
 </div>
 
 <div class="align-right">
